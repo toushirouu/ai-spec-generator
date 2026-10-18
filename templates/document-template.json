@@ -1,0 +1,13 @@
+{
+  "template_name": "specyfikacja-produktu-v1",
+  "language": "pl",
+  "description_heading": "Opis produktu",
+  "specification_heading": "Specyfikacja techniczna",
+  "sources_heading": "Źródła i podstawa opracowania",
+  "table_headers": ["Parametr", "Wartość", "Źródło / lokalizacja dowodu"],
+  "identity_labels": {
+    "manufacturer": "Producent",
+    "catalog_number": "Kod producenta / MPN"
+  },
+  "content_order": ["identity", "description", "technical_specification", "sources"]
+}
