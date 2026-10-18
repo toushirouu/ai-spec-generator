@@ -13,6 +13,7 @@
 - Nagłówki sekcji opisu łączą istotną cechę z jej praktycznym znaczeniem dla użytkownika. Wyjaśniaj korzyści na podstawie potwierdzonych parametrów, bez nieuzasadnionych obietnic.
 - Wstęp i każdy akapit tematyczny opisu powinny zawierać zwykle 3–4 pełne zdania: cechę, jej konkretną korzyść dla użytkownika oraz parametry, które tę korzyść uzasadniają.
 - Pisz o potwierdzonych cechach produktu bez dystansujących wstawek typu „producent podaje” lub „według producenta”. Zachowuj zwykły, rzeczowy ton opisu produktu; zastrzeżenia dodawaj tylko tam, gdzie wynikają z warunków pomiaru, zakresu działania albo opcjonalności wyposażenia.
+- Redaguj opisy z myślą o SEO: naturalnie użyj kategorii, marki, dokładnego modelu i najważniejszych potwierdzonych cech. Unikaj upychania fraz, duplikowania tekstu i określeń niepopartych danymi; nie obiecuj pozycji w wyszukiwarce.
 - Oddzielaj fakt techniczny od wniosku użytkowego. Zachowuj zastrzeżenia dla wartości maksymalnych, warunków pomiaru, akcesoriów opcjonalnych i różnic między wariantami.
 - Nie zgaduj ani nie uzupełniaj brakujących wartości na podstawie podobnych produktów.
 - Rozróżniaj `MISSING` (brak danych), `CONFLICT` (źródła są sprzeczne) i `NOT_APPLICABLE` (pole nie dotyczy produktu).

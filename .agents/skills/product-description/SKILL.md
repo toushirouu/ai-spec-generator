@@ -1,6 +1,6 @@
 ---
 name: product-description
-description: Redaguje po polsku opis handlowy laptopa, komputera, monitora lub innego produktu elektronicznego na podstawie potwierdzonych danych.
+description: Redaguje po polsku opisy produktów elektronicznych zgodne z SEO, oparte na potwierdzonych danych i wyjaśniające korzyści dla użytkownika.
 ---
 
 # Przygotowanie opisu produktu
@@ -18,6 +18,10 @@ Używaj zweryfikowanego rekordu z `data/processed/`. Przed redakcją sprawdź do
 - Nagłówek każdej sekcji opisowej łącz zrozumiałą cechę z jej znaczeniem dla użytkownika; unikaj nagłówków będących samą nazwą kategorii, np. „Procesor” lub „Ekran”.
 - Wstęp i każdy akapit sekcji rozwiń do 3–4 pełnych zdań. Wyjaśnij prostym językiem konkretną korzyść dla użytkownika, a następnie podaj najważniejsze parametry i zastosowanie. Każde wyjaśnienie musi być proporcjonalnym wnioskiem z danych wskazanych w `based_on`.
 - Pisz o potwierdzonych cechach wprost i naturalnie, jak w opisie produktu. Nie dodawaj powtarzalnych sformułowań „producent podaje” ani „według producenta”; pochodzenie informacji jest widoczne w danych i źródłach dokumentu.
+- Stosuj podstawowe zasady SEO bez obniżania jakości tekstu: wpleć naturalnie wstępem kategorię produktu, markę, pełny model lub kod katalogowy oraz najważniejsze potwierdzone cechy, których użytkownik może szukać.
+- Używaj czytelnych nagłówków opisujących temat i korzyść. Uwzględniaj naturalne synonimy kategorii i nazwy zastosowań tylko wtedy, gdy pasują do produktu i są potwierdzone.
+- Nie upychaj powtarzanych fraz, nie twórz sztucznych list słów kluczowych i nie obiecuj pozycji w wynikach wyszukiwania. Nie dopisuj niepotwierdzonych określeń typu „najlepszy”, „gamingowy”, „profesjonalny” ani innych etykiet wyłącznie dla SEO.
+- Twórz oryginalne sformułowania; nie kopiuj tekstów producenta ani sprzedawców. Każda fraza SEO musi brzmieć naturalnie i pozostawać zgodna z udokumentowanymi cechami wariantu.
 - Nie dopisuj nieudowodnionych obietnic wydajności, czasu pracy, komfortu, trwałości, bezpieczeństwa ani kompatybilności. Nie przedstawiaj interpretacji jako gwarancji.
 - Zachowuj istotne warunki wartości maksymalnych, pomiarów, akcesoriów sprzedawanych osobno i konfiguracji zależnych od wariantu, ale nie osłabiaj nimi zwykłych, potwierdzonych parametrów.
 - Odróżniaj wyposażenie standardowe od opcjonalnego i konfigurowalnego.
@@ -31,7 +35,7 @@ W rekordzie produktu uzupełnij strukturę:
 
 ```json
 "description": {
-  "lead": "Krótki wstęp identyfikujący produkt i jego potwierdzone zastosowanie.",
+  "lead": "Wstęp identyfikujący kategorię, markę, model i potwierdzone zastosowanie; naturalnie uwzględnia główne frazy wyszukiwane przez klientów.",
   "lead_based_on": ["parameter_key"],
   "sections": [
     {

@@ -26,6 +26,8 @@ Opis jest redagowany po polsku na podstawie zweryfikowanego rekordu produktu. Ge
 - Rozpocznij akapit od prostego wyjaśnienia praktycznego znaczenia, a następnie podaj potwierdzające parametry. Czytelnik ma rozumieć korzyść bez znajomości skrótów technicznych.
 - Wstęp i każdy akapit tematyczny rozwijaj do 3–4 pełnych zdań. Wskaż nie tylko, co produkt ma, ale też jak ta cecha pomaga w konkretnym zastosowaniu.
 - Pisz o potwierdzonych parametrach wprost, np. „Ekran ma jasność 350 nitów”, bez formuł „producent podaje” i „według producenta”. Źródła pozostają przypisane do danych w specyfikacji.
+- Przygotowuj tekst zgodnie z SEO: wstęp powinien naturalnie zawierać kategorię produktu, markę, dokładny model lub kod katalogowy oraz najważniejsze potwierdzone cechy. W nagłówkach i akapitach używaj zwykłych określeń i synonimów kategorii, które odpowiadają produktowi i intencjom kupujących.
+- Unikaj upychania fraz, powtarzania modelu w każdym zdaniu, sztucznych list słów kluczowych i niepotwierdzonych etykiet marketingowych. SEO nie uzasadnia dopisywania cech, których nie ma w dowodach.
 - Oddzielaj parametr od wniosku: nie dopisuj zapewnień o wydajności, komforcie, bezpieczeństwie ani kompatybilności, jeśli dane ich nie uzasadniają. Nie przedstawiaj przypuszczenia jako gwarantowanego efektu.
 - Stosuj zastrzeżenia tylko tam, gdzie są ważne dla użytkownika: przy wartościach maksymalnych i warunkach pomiaru, akcesoriach opcjonalnych oraz konfiguracji zależnej od wariantu.
 - Wstęp wskazuje pola w `lead_based_on`, a każdy akapit tematyczny — pola w `based_on`. Generator umieści ich etykiety przy akapicie.
