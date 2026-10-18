@@ -1,0 +1,33 @@
+# Dane i dokumenty konkretnego produktu pozostają lokalne.
+/data/input/*
+!/data/input/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+/data/sources/*
+!/data/sources/.gitkeep
+/output/*
+!/output/.gitkeep
+/reports/*
+!/reports/.gitkeep
+
+# Zatwierdzone wzorce w templates/ są częścią projektu i mogą być wersjonowane.
+
+# Cache i pliki tymczasowe Pythona.
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Lokalne środowiska wirtualne.
+.venv/
+venv/
+ENV/
+
+# Tymczasowe pliki edytorów/systemu.
+*.tmp
+*.swp
+*.bak
+Thumbs.db
+.DS_Store

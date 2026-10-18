@@ -1,0 +1,1 @@
+"""Kod generatora specyfikacji technicznych."""
