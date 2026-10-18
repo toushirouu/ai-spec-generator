@@ -7,7 +7,7 @@ Projekt pomaga zebrać potwierdzone informacje o sprzęcie elektronicznym, przyg
 1. **Wskaż dokładny produkt.** Zbierz producenta, pełny kod modelu i wariant, np. numer MPN. Link do strony produktu pomaga rozpocząć badanie, ale nie zastępuje potwierdzenia specyfikacji.
 2. **Poproś AI o zbadanie produktu.** Użyj skilla `product-research`. Preferowane są oficjalna strona producenta, karta produktu, instrukcja i karta katalogowa. Każdy parametr ma mieć źródło, lokalizację dowodu i jednostkę, jeśli jej wymaga.
 3. **Zapisz dane produktu.** Rekord JSON trafia do `data/processed/`, a metadane wykorzystanych źródeł do `data/sources/`. Te katalogi są lokalne i ignorowane przez Git.
-4. **Przygotuj opis.** Użyj skilla `product-description` i wzorca `templates/product-description-template.md`. Opis ma wynikać z potwierdzonych danych. Każdy akapit łączy się z parametrami przez `based_on`.
+4. **Przygotuj opis.** Użyj skilla `product-description` i wzorca `templates/product-description-template.md`. Opis ma wynikać z potwierdzonych danych. Nagłówek każdej sekcji powinien pokazywać praktyczne znaczenie opisywanej cechy, a akapit wyjaśniać je prostym językiem bez nieuzasadnionych obietnic. Każdy akapit łączy się z parametrami przez `based_on`.
 5. **Sprawdź dane.** Użyj skilla `technical-validation`. Nie zgaduj braków. Rozróżnij `MISSING`, `CONFLICT` i `NOT_APPLICABLE`. Publikację można przygotować wyłącznie dla statusu `PASS`.
 6. **Wygeneruj Worda.** Po uzupełnieniu rekordu i ustawieniu `PASS` uruchom:
 
@@ -45,7 +45,7 @@ sprawdza strukturę CSV i podstawowy zapis parametrów. Nie wyszukuje informacji
 
 ## Układ dokumentu
 
-Wygenerowany Word zawiera identyfikację produktu, opis handlowy, tabelę specyfikacji z dowodami oraz listę źródeł. Układ konfiguruje `templates/document-template.json`; zasady redakcyjne znajdują się w pozostałych plikach `templates/`. Szablony są częścią projektu i mogą być wersjonowane. Dane produktów, raporty i wygenerowane dokumenty pozostają lokalne.
+Wygenerowany Word zawiera identyfikację produktu, opis handlowy z nagłówkami wyjaśniającymi praktyczne znaczenie cech, tabelę parametrów z dowodami oraz listę źródeł. Układ konfiguruje `templates/document-template.json`; zasady redakcyjne znajdują się w pozostałych plikach `templates/`. Szablony są częścią projektu i mogą być wersjonowane. Dane produktów, raporty i wygenerowane dokumenty pozostają lokalne.
 
 ## Ważne ograniczenia
 

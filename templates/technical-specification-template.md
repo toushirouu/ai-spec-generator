@@ -2,6 +2,8 @@
 
 Każdy dokument zawiera identyfikację produktu, opis handlowy (jeżeli został przygotowany), specyfikację i źródła. Generator bierze konfigurację układu z `document-template.json`, a pola z rekordu JSON produktu.
 
+Opis handlowy poprzedza tabelę i tłumaczy najważniejsze cechy na ich praktyczne znaczenie dla użytkownika. Nagłówki i akapity mają być czytelne bez specjalistycznej wiedzy; tabela specyfikacji pozostaje precyzyjnym zapisem parametrów, jednostek i dowodów. Nie mieszaj interpretacji użytkowej z wartością parametru.
+
 ## Identyfikacja produktu
 
 - Producent

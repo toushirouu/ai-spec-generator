@@ -4,3 +4,5 @@
 
 Zasady redakcyjne znajdują się w `product-description-template.md`, a zasady tabeli technicznej w `technical-specification-template.md`. Są to wzorce projektu, nie dokumentacja konkretnego produktu.
 
+Opis ma pomagać w wyborze sprzętu: nagłówek każdej sekcji wskazuje praktyczne znaczenie opisywanej cechy, a akapit wyjaśnia je prostymi słowami i podpiera danymi. Sekcja specyfikacji zachowuje dokładne parametry, jednostki i ślad źródłowy. Wnioski redakcyjne nie mogą wykraczać poza to, co uzasadniają dowody dla konkretnego wariantu.
+
