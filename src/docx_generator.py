@@ -33,14 +33,25 @@ def cell_text(cell: ET.Element, text: str, *, bold: bool = False) -> None:
     paragraph(cell, text, bold=bold)
 
 
-def build_document(product: dict) -> bytes:
+DEFAULT_TEMPLATE = {
+    "description_heading": "Opis produktu",
+    "specification_heading": "Specyfikacja techniczna",
+    "sources_heading": "Źródła danych",
+    "table_headers": ["Parametr", "Wartość", "Źródło / lokalizacja dowodu"],
+    "identity_labels": {"manufacturer": "Producent", "catalog_number": "Numer katalogowy"},
+}
+
+
+def build_document(product: dict, template: dict | None = None) -> bytes:
+    template = {**DEFAULT_TEMPLATE, **(template or {})}
     document = ET.Element(wtag("document"))
     body = ET.SubElement(document, wtag("body"))
     paragraph(body, product.get("product_name", "Specyfikacja produktu"), bold=True, size=32)
     identity = []
-    for label, key in (("Producent", "manufacturer"), ("Numer katalogowy", "catalog_number")):
+    identity_labels = template.get("identity_labels", DEFAULT_TEMPLATE["identity_labels"])
+    for key in ("manufacturer", "catalog_number"):
         if product.get(key):
-            identity.append(f"{label}: {product[key]}")
+            identity.append(f"{identity_labels.get(key, key)}: {product[key]}")
     if identity:
         paragraph(body, "   |   ".join(identity), bold=True)
     if product.get("category"):
@@ -50,7 +61,38 @@ def build_document(product: dict) -> bytes:
     if product.get("ean", {}).get("value"):
         paragraph(body, f"EAN: {product['ean']['value']}")
     paragraph(body, f"Status walidacji: {product['validation_status']}", bold=True)
-    paragraph(body, "Dane techniczne", bold=True, size=26)
+
+    description = product.get("description", {})
+    if description.get("lead") or description.get("sections"):
+        paragraph(body, template["description_heading"], bold=True, size=26)
+        if description.get("lead"):
+            paragraph(body, description["lead"])
+        parameters = product.get("parameters", {})
+        lead_evidence = []
+        for key in description.get("lead_based_on", []):
+            parameter = parameters.get(key, {})
+            if parameter:
+                label = parameter.get("label", key.replace("_", " "))
+                source = parameter.get("source")
+                lead_evidence.append(f"{label}" + (f" [{source}]" if source else ""))
+        if lead_evidence:
+            paragraph(body, "Podstawa faktograficzna: " + "; ".join(lead_evidence))
+        for content_section in description.get("sections", []):
+            if content_section.get("heading"):
+                paragraph(body, content_section["heading"], bold=True, size=22)
+            if content_section.get("body"):
+                paragraph(body, content_section["body"])
+            evidence = []
+            for key in content_section.get("based_on", []):
+                parameter = parameters.get(key, {})
+                if parameter:
+                    label = parameter.get("label", key.replace("_", " "))
+                    source = parameter.get("source")
+                    evidence.append(f"{label}" + (f" [{source}]" if source else ""))
+            if evidence:
+                paragraph(body, "Podstawa faktograficzna: " + "; ".join(evidence))
+
+    paragraph(body, template["specification_heading"], bold=True, size=26)
 
     table = ET.SubElement(body, wtag("tbl"))
     props = ET.SubElement(table, wtag("tblPr"))
@@ -62,7 +104,7 @@ def build_document(product: dict) -> bytes:
         ET.SubElement(grid, wtag("gridCol")).set(wtag("w"), str(width))
 
     header = ET.SubElement(table, wtag("tr"))
-    for text in ("Parametr", "Wartość", "Źródło / lokalizacja dowodu"):
+    for text in template.get("table_headers", DEFAULT_TEMPLATE["table_headers"]):
         cell_text(ET.SubElement(header, wtag("tc")), text, bold=True)
 
     current_group = None
@@ -90,7 +132,7 @@ def build_document(product: dict) -> bytes:
 
     sources = product.get("sources", [])
     if sources:
-        paragraph(body, "Źródła danych", bold=True, size=24)
+        paragraph(body, template["sources_heading"], bold=True, size=24)
         for source in sources:
             title = source.get("title", source.get("source_id", "Źródło"))
             url = source.get("url")
@@ -107,10 +149,29 @@ def build_document(product: dict) -> bytes:
     return ET.tostring(document, encoding="utf-8", xml_declaration=True)
 
 
-def generate_docx(data_path: Path, output_path: Path) -> None:
+def generate_docx(data_path: Path, output_path: Path, template_path: Path | None = None) -> None:
     product = json.loads(data_path.read_text(encoding="utf-8"))
     if product.get("validation_status") != "PASS":
         raise ValueError("Generowanie wstrzymane: status walidacji musi wynosić PASS")
+    description = product.get("description", {})
+    parameters = product.get("parameters", {})
+    if not description.get("lead") or not description.get("sections"):
+        raise ValueError("Rekord musi zawierać opis: lead i co najmniej jedną sekcję")
+    description_blocks = [("lead", description.get("lead_based_on", []))]
+    description_blocks.extend(
+        (section.get("heading", "sekcja opisu"), section.get("based_on", []))
+        for section in description.get("sections", [])
+    )
+    for block_name, keys in description_blocks:
+        if not keys:
+            raise ValueError(f"Opis '{block_name}' nie wskazuje pól factograficznych w based_on")
+        for key in keys:
+            fact = parameters.get(key)
+            if not fact or not fact.get("source") or not fact.get("evidence"):
+                raise ValueError(f"Opis '{block_name}': pole {key!r} nie ma potwierdzonego źródła i dowodu")
+    if template_path is None:
+        template_path = Path(__file__).resolve().parents[1] / "templates" / "document-template.json"
+    template = json.loads(template_path.read_text(encoding="utf-8")) if template_path.exists() else None
     output_path.parent.mkdir(parents=True, exist_ok=True)
     content_types = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
@@ -125,7 +186,7 @@ def generate_docx(data_path: Path, output_path: Path) -> None:
     with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as docx:
         docx.writestr("[Content_Types].xml", content_types)
         docx.writestr("_rels/.rels", relationships)
-        docx.writestr("word/document.xml", build_document(product))
+        docx.writestr("word/document.xml", build_document(product, template))
 
 
 def main() -> None:
@@ -133,9 +194,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generuje DOCX ze zwalidowanego rekordu produktu.")
     parser.add_argument("data", type=Path, help="Ścieżka do JSON produktu ze statusem PASS")
     parser.add_argument("--output", type=Path, help="Ścieżka wyjściowa; domyślnie output/<nazwa-rekordu>.docx")
+    parser.add_argument("--template", type=Path, help="Plik JSON z konfiguracją układu dokumentu")
     args = parser.parse_args()
     output_path = args.output or (repo / "output" / f"{args.data.stem}.docx")
-    generate_docx(args.data, output_path)
+    generate_docx(args.data, output_path, args.template)
     print(f"Zapisano: {output_path}")
 
 

@@ -9,6 +9,7 @@
 - Preferuj oficjalne strony producentów, karty produktów, specyfikacje, instrukcje, arkusze danych i deklaracje producenta.
 - Potwierdź dokładny numer katalogowy oraz wariant produktu przed przypisaniem parametrów.
 - Każdy ustalony parametr musi mieć źródło; dodaj jednostkę, gdy parametr jej wymaga.
+- Opis handlowy twórz wyłącznie z potwierdzonych danych i wiąż każdy akapit z parametrami źródłowymi.
 - Nie zgaduj ani nie uzupełniaj brakujących wartości na podstawie podobnych produktów.
 - Rozróżniaj `MISSING` (brak danych), `CONFLICT` (źródła są sprzeczne) i `NOT_APPLICABLE` (pole nie dotyczy produktu).
 - Zgodność z normą, certyfikację lub obsługę technologii deklaruj wyłącznie, gdy dostępny dowód dotyczy dokładnie badanego produktu i wariantu.
